@@ -7,10 +7,16 @@ import uuid
 class Genre(models.Model):
     """Model representing a book genre."""
     name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+    shortsummary = models.TextField(max_length=2000, help_text='Breif genre description', default='add some text')
     
     def __str__(self):
         """String for representing the Model object."""
         return self.name
+
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this book."""
+        return reverse('genre-detail', args=[str(self.id)])      
 
 class Language(models.Model):
     """ Model  representing the language a book is written in """
@@ -33,6 +39,7 @@ class Book(models.Model):
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
+    language = models.ManyToManyField(Language, help_text='Select a language for this book')
 
     def __str__(self):
         """String for representing the Model object."""

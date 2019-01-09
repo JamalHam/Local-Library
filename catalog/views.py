@@ -30,7 +30,7 @@ def index(request):
 
 class BookListView(generic.ListView):
     model=Book
-    template_name = '/locallibrary/catalog/templates/catalog/book_list.html'
+    paginate_by = 10
 
 class BookDetailView(generic.DetailView):
     model=Book
